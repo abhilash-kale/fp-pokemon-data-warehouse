@@ -83,7 +83,7 @@ Quality is handled via defense-in-depth, catching errors at both the boundary an
 * **Nullity:** Primary keys and critical dimensions are asserted `not_null` in `marts.yml`.
 * **Domain Logic:** I wrote a custom dbt test (`tests/test_stats_within_bounds.sql`) to assert that no base stat violates the 1–255 integer bound.
 
-### Part B — Production sketch
+### Part B - Production sketch
 
 While this pipeline currently handles a fixed set of 151 Pokémon, transitioning to a production environment requires a defensive, "Day 2" operational mindset. If deployed for daily updates:
 
