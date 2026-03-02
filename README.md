@@ -31,15 +31,56 @@ Before running the pipeline, ensure you have the following installed on your sys
 The pipeline is fully containerized and orchestrated via GNU Make. 
 
 ```bash
-# Execute the end-to-end pipeline (Extract -> Load -> Transform -> Analyze)
+# 1. Clone the repository and navigate into the root directory
+git clone https://github.com/abhilash-kale/fp-pokemon-data-warehouse
+cd fp-pokemon-data-warehouse
+
+# 2. Execute the end-to-end pipeline (Extract -> Load -> Transform -> Analyze)
 make run
 
-# View the Core 3 Analytics output
+# 3. View the Core 3 Analytics output
 cat data/reports/analytics_report.md
 
-# Teardown local state (Lake + DB)
+# 4. Teardown local state (Lake + DB containers and data)
 make clean
 ```
+
+## Exploring the Data Warehouse
+
+After running the pipeline, the final DuckDB database is saved locally at `data/pokemon_dw.duckdb`.
+
+If you want to poke around the star schema, verify row counts, or run ad-hoc queries, here are the easiest ways to connect:
+
+### 1. Via Harlequin (Recommended)
+[Harlequin](https://harlequin.sh/) is a blazing-fast Terminal UI (TUI) designed specifically for databases like DuckDB. It allows you to explore the data models without leaving your terminal.
+
+```bash
+# Install Harlequin via pip
+pip install harlequin
+
+# Launch the terminal IDE against the local warehouse
+harlequin data/pokemon_dw.duckdb
+```
+
+*Once inside, you can easily navigate the `marts` schema and run SQL directly against the `fact_pokemon_stats` and `agg_type_stats` tables.*
+
+### 2. Via Database GUIs (DBeaver / DataGrip)
+If you prefer a visual interface, you can connect to this file using popular database management tools like **DBeaver**. 
+
+1. Add a new DuckDB connection.
+2. If prompted, download the DuckDB JDBC driver.
+3. Set the database path to your local `data/pokemon_wh.duckdb` file.
+
+### 3. Via Python
+You can also quickly query the data using the standard DuckDB Python package:
+```python
+import duckdb
+
+con = duckdb.connect('data/pokemon_wh.duckdb')
+print(con.sql("SELECT * FROM marts.agg_type_stats ORDER BY average_attack DESC LIMIT 5"))
+```
+
+---
 
 ## Architecture & Design Decisions
 ![Architecture Diagram](assets/pokemon_wh.drawio.png)
