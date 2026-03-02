@@ -1,0 +1,83 @@
+version: 2
+models:
+  - name: dim_pokemon
+    columns:
+      - name: pokemon_id
+        tests:
+          - unique
+          - not_null
+      - name: pokemon_name
+        tests:
+          - unique
+          - not_null
+      - name: height
+        tests:
+          - not_null
+      - name: weight
+        tests:
+          - not_null
+
+  - name: dim_type
+    columns:
+      - name: type_id
+        tests:
+          - unique
+          - not_null
+      - name: type_name
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_ability
+    columns:
+      - name: ability_id
+        tests:
+          - unique
+          - not_null
+      - name: ability_name
+        tests:
+          - unique
+          - not_null
+
+  - name: fact_pokemon_stats
+    columns:
+      - name: pokemon_id
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              to: ref('dim_pokemon')
+              field: pokemon_id
+      - name: stat_hp
+        tests:
+          - not_null
+
+  - name: bridge_pokemon_type
+    columns:
+      - name: pokemon_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_pokemon')
+              field: pokemon_id
+      - name: type_name
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_type')
+              field: type_name
+
+  - name: bridge_pokemon_ability
+    columns:
+      - name: pokemon_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_pokemon')
+              field: pokemon_id
+      - name: ability_name
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_ability')
+              field: ability_name

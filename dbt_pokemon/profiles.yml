@@ -1,0 +1,7 @@
+pokemon_profile:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: '/app/data/pokemon_dw.duckdb'
+      threads: 4

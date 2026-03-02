@@ -1,0 +1,11 @@
+venv/
+__pycache__/
+.pytest_cache/
+data/
+*.duckdb
+*.duckdb.wal
+dbt_pokemon/target/
+dbt_pokemon/dbt_packages/
+dbt_pokemon/logs/
+.env
+.vscode/
