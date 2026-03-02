@@ -1,7 +1,7 @@
 # Pokémon Data Warehouse
 
 This repository implements a production-grade, idempotent ELT pipeline.<br>
-It extracts from the PokéAPI, stages payloads in a local partitioned Data Lake, and models a dimensional Data Warehouse using DuckDB and dbt.
+It extracts from the [PokéAPI](https://pokeapi.co/), stages payloads in a local partitioned Data Lake, and models a dimensional Data Warehouse using DuckDB and dbt.
 
 The architecture is built around three core principles: **contract-driven ingestion**, **compute pushdown**, and **zero-copy staging**.
 
