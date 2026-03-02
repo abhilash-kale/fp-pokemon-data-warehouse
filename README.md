@@ -64,7 +64,7 @@ harlequin data/pokemon_dw.duckdb
 
 *Once inside, you can easily navigate the `marts` schema and run SQL directly against the `fact_pokemon_stats` and `agg_type_stats` tables.*
 
-### 2. Via Database GUIs (DBeaver / DataGrip)
+### 2. Via Database GUIs (DBeaver)
 If you prefer a visual interface, you can connect to this file using popular database management tools like **DBeaver**. 
 
 1. Add a new DuckDB connection.
